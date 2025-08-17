@@ -38,26 +38,28 @@ public class Main {
                     break; // graceful exit
                 }
 
-//                Validate input
-                MoveRequest moveRequest = InputValidationService.validate(input);
+                try {
+                    // Validate input
+                    MoveRequest moveRequest = InputValidationService.validate(input);
 
-//                Create ChessPiece and calculate possible positions
-                ChessPiece chessPiece = ChessPieceFactory.createChessPiece(moveRequest.getPiece());
-                List<ChessBoardPosition> possiblePositions = chessPiece.possibleMoves(moveRequest.getChessBoardPosition());
+                    // Create ChessPiece and calculate possible positions
+                    ChessPiece chessPiece = ChessPieceFactory.createChessPiece(moveRequest.getPiece());
+                    List<ChessBoardPosition> possiblePositions = chessPiece.possibleMoves(moveRequest.getChessBoardPosition());
 
-//                Construct output
-                String output = possiblePositions.stream()
-                        .map(ChessBoardPosition::toString)
-                        .collect(Collectors.joining(", "));
+                    // Construct output
+                    String output = possiblePositions.stream()
+                            .map(ChessBoardPosition::toString)
+                            .collect(Collectors.joining(", "));
 
-                log.info("Output - {}", output);
+                    log.info("Output - {}", output);
+
+                } catch (IllegalArgumentException e) {
+                    log.warn("Invalid argument provided: {}", e.getMessage());
+                    log.info("Hint: Use format <chess_piece>,<board_position>. Example: King,A4");
+                } catch (Exception e) {
+                    log.error("Unexpected error occurred: {}", e.getMessage(), e);
+                }
             }
-        } catch (IllegalArgumentException e) {
-            log.warn("Invalid argument provided: {}", e.getMessage());
-            log.info("Hint: Use format <chess_piece>,<board_position>. Example: King,A4");
-        } catch (Exception e) {
-            log.error("Unexpected error occurred: {}", e.getMessage());
         }
     }
-
 }
