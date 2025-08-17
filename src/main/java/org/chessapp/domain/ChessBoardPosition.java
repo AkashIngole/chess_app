@@ -1,10 +1,18 @@
 package org.chessapp.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+/**
+ * This class represents position on 8x8 chessboard.
+ * Uses 0 based indexing:
+ *      column: 0 = A, 7 = H
+ *      row: 0 to 7
+ */
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class ChessBoardPosition {
 
     private int row;
@@ -33,11 +41,11 @@ public class ChessBoardPosition {
 
     @Override
     public String toString() {
-        char columnChar = (char) (column - 1 + 'A');
-        return "" + columnChar + row;
+        char columnChar = (char) (column + 'A');
+        return "" + columnChar + (row + 1);
     }
 
     public boolean isValid(){
-        return (row >= 1 && row < 8) && (column >= 1 && column < 8);
+        return (row >= 0 && row < 8) && (column >= 0 && column < 8);
     }
 }

@@ -1,6 +1,9 @@
 package org.chessapp.enums;
 
-enum PlayDirection {
+import lombok.Getter;
+
+@Getter
+public enum PlayDirection {
 
     // Straight moves
     UP(1, 0),

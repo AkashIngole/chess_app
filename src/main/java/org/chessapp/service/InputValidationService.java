@@ -32,7 +32,7 @@ public class InputValidationService {
             throw new IllegalArgumentException("Invalid board position");
         }
 
-        ChessBoardPosition chessBoardPosition = ChessBoardPosition.getChessBoardPosition(boardPosition);
+        ChessBoardPosition chessBoardPosition = ChessBoardPosition.getChessBoardPosition(boardPosition.trim());
 
         return new MoveRequest(chessPiece.toUpperCase(), chessBoardPosition);
     }
